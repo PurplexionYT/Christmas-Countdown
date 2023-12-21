@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Countdown</title>
+    <style>
+        body {
+            background: linear-gradient(to right, red, maroon)
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        let christmas = new Date("December 25, 2023 0:00:00")
+        let now = new Date()
+        console.log(christmas.getFullYear() - now.getFullYear())
+        console.log(christmas.getMonth() - now.getMonth())
+        console.log(christmas.getDate() - now.getDate())
+        console.log(24 - now.getHours())
+        console.log(christmas.getMinutes() - now.getMinutes())
+        
+    </script>
+</body>
+</html>
