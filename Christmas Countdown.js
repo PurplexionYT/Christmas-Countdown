@@ -1,3 +1,9 @@
+document.getElementById('playback-speed').onchange = function() { whistle.playbackRate = this.value; }
+
+function playbackSpeed() {
+    console.log('d')
+}
+
 let isDialogVisible = false; 
 
     function showDialog() {
@@ -24,6 +30,7 @@ let isDialogVisible = false;
                     else {
                         playSound();
                         isAudioPlaying = true
+                        document.getElementById('error-message').style.visibility = 'hidden';
                     }}})
         
         $('document').ready(function() {
@@ -67,11 +74,17 @@ let isDialogVisible = false;
             if (document.getElementById('loopCheckBox').checked === true && isAudioPlaying === true) {
                 whistle.loop = true;
                 console.log('hi')
+                document.getElementById('error-message').style.visibility = 'hidden';
             }
             
             else if (document.getElementById('loopCheckBox').checked === true && isAudioPlaying !== true) {
                 document.getElementById('loopCheckBox').checked = false;
-                
+                document.getElementById('error-message').style.visibility = 'visible';
+                $('#error-message').fadeIn()
+                console.log('d')
+                setTimeout(function() {
+                    $('#error-message').fadeOut()
+                }, 2000)
             }
             
             else {
@@ -112,7 +125,6 @@ let isDialogVisible = false;
         }    
         
         function decreaseStopwatch() {
-            christmas = new Date("December 25, 2023 0:00:00"); // a variable that stores the date when Christmas starts
             present = new Date(); // a variable that stores the present date
             days = Math.floor((christmas.getTime() - present.getTime()) / 1000 / 60 / 60 / 24); // stores days between upper two dates
             daysRemainder = ((christmas.getTime() - present.getTime()) / 1000 / 60 / 60 / 24) - days // stores day decimal for later use
@@ -122,12 +134,11 @@ let isDialogVisible = false;
             minutesRemainder = hoursRemainder * 60 - minutes // stores minute decimal for later use
             seconds = Math.floor(minutesRemainder * 60) // makes upper decimal into seconds, store the whole number
             secondsRemainder = minutesRemainder * 60 - seconds // stores seconds decimal, for really no use :-)
-
+            
             document.getElementById('seconds').innerHTML = seconds;
             document.getElementById('minutes').innerHTML = minutes; 
             document.getElementById('hours').innerHTML = hours;
             document.getElementById('days').innerHTML = days;
-            console.log(seconds, minutes, hours, days)
             
             if (document.getElementById('seconds').innerHTML.length == 1) {
                 document.getElementById('seconds').innerHTML = '0' + seconds.toString();
@@ -143,7 +154,13 @@ let isDialogVisible = false;
             
             if (document.getElementById('days').innerHTML.length == 1) {
                 document.getElementById('days').innerHTML = '0' + days.toString();
-            }    
+            }
+            
+            if (document.getElementById('seconds').innerHTML == '00' && document.getElementById('minutes').innerHTML == '00' 
+            && document.getElementById('hours').innerHTML == '00' && document.getElementById('days').innerHTML == '00') {
+                christmas = new Date('December 25, ' + (christmas.getFullYear() + 1).toString() + ' 0:00:00')
+                whistle.src = 'Let it Snow.mp3';
+                console.log('hi')
+            }
         }
         
-        console.log(seconds)
